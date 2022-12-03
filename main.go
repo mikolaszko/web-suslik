@@ -16,32 +16,30 @@ var (
 		Short: "An example cobra program",
 		Long:  "A longer example cobra program",
 	}
-	susCmd = &cobra.Command{
-		Use:   "sus [link to scrape]",
-		Short: "Scrapes provided link for hrefs",
+	SuslinkscomCmd = &cobra.Command{
+		Use:   "slcom [link with to scrape]",
+		Short: "Scrapes provided https://link for hrefs",
 		Args:  cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			helpers.PointToWebsite(args)
+			helpers.ScrapeLinksCom(args)
 		},
 	}
-	// timesCmd = &cobra.Command{
-	// 	Use:   "times [strings to echo]",
-	// 	Short: "prints given strings to stdout multiple times",
-	// 	Args:  cobra.MinimumNArgs(1),
-	// 	Run: func(cmd *cobra.Command, args []string) {
-	// 		for i := 0; i < times; i++ {
-	// 			fmt.Println("Echo: " + strings.Join(args, " "))
-	// 		}
-	// 	},
-	// }
+	SuslinksCmd = &cobra.Command{
+		Use:   "sl [link to scrape, domain]",
+		Short: "Scrapes provided https://link (thats not .com) for hrefs",
+		Args:  cobra.MaximumNArgs(2),
+		Run: func(cmd *cobra.Command, args []string) {
+			helpers.ScrapeLinks(args)
+		},
+	}
 )
 
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&persistRootFlag, "persistFlat", "p", false, "a persistant root flag")
 	rootCmd.Flags().BoolVarP(&localRootFlag, "localFlag", "l", false, "a local root flag")
 	// timesCmd.Flags().IntVarP(&times, "times", "t", 1, "number of times to echo to stdout")
-	rootCmd.AddCommand(susCmd)
-	// echoCmd.AddCommand(timesCmd)
+	rootCmd.AddCommand(SuslinkscomCmd)
+	rootCmd.AddCommand(SuslinksCmd)
 }
 
 func main() {
