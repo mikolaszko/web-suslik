@@ -17,16 +17,16 @@ var (
 		Long:  "A longer example cobra program",
 	}
 	SuslinkscomCmd = &cobra.Command{
-		Use:   "slcom [link with to scrape]",
-		Short: "Scrapes provided https://link for hrefs",
+		Use:   "slcom [url to scrape]",
+		Short: "Scrapes provided https://url for hrefs",
 		Args:  cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			helpers.ScrapeLinksCom(args)
 		},
 	}
 	SuslinksCmd = &cobra.Command{
-		Use:   "sl [link to scrape, domain]",
-		Short: "Scrapes provided https://link (thats not .com) for hrefs",
+		Use:   "sl [url to scrape, domain]",
+		Short: "Scrapes provided https://url (thats not .com) for hrefs",
 		Args:  cobra.MaximumNArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
 			helpers.ScrapeLinks(args)
