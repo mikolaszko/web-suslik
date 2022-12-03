@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
-	"github.com/gocolly/colly/v2"
 	"github.com/mikolaszko/web-suslik/helpers"
 	"github.com/spf13/cobra"
 )
@@ -18,10 +16,10 @@ var (
 		Short: "An example cobra program",
 		Long:  "A longer example cobra program",
 	}
-	echoCmd = &cobra.Command{
-		Use:   "echo [strings to echo]",
-		Short: "Prints given strings to stdout",
-		Args:  cobra.MinimumNArgs(1),
+	susCmd = &cobra.Command{
+		Use:   "sus [link to scrape]",
+		Short: "Scrapes provided link for hrefs",
+		Args:  cobra.MaximumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			helpers.PointToWebsite(args)
 		},
@@ -42,7 +40,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&persistRootFlag, "persistFlat", "p", false, "a persistant root flag")
 	rootCmd.Flags().BoolVarP(&localRootFlag, "localFlag", "l", false, "a local root flag")
 	// timesCmd.Flags().IntVarP(&times, "times", "t", 1, "number of times to echo to stdout")
-	rootCmd.AddCommand(echoCmd)
+	rootCmd.AddCommand(susCmd)
 	// echoCmd.AddCommand(timesCmd)
 }
 
@@ -50,13 +48,4 @@ func main() {
 	if err := rootCmd.Execute(); err != nil {
 		log.Fatal(err)
 	}
-	c := colly.NewCollector(
-		colly.AllowedDomains("en.wikipedia.org"),
-	)
-
-	c.OnHTML(".mw-parser-output", func(e *colly.HTMLElement) {
-		links := e.ChildAttrs("a", "href")
-		fmt.Println(links)
-	})
-	c.Visit("https://en.wikipedia.org/wiki/Web_scraping")
 }
