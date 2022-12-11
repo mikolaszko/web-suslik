@@ -32,6 +32,14 @@ var (
 			helpers.ScrapeLinks(args)
 		},
 	}
+	SusheadlinesCmd = &cobra.Command{
+		Use: "sh [url to scrape]",
+		Short: "Scrapes provided https://url for h1s",
+		Args: cobra.MaximumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			helpers.ScrapeHeadlines(args)
+		},
+	}
 )
 
 func init() {
@@ -40,6 +48,7 @@ func init() {
 	// timesCmd.Flags().IntVarP(&times, "times", "t", 1, "number of times to echo to stdout")
 	rootCmd.AddCommand(SuslinkscomCmd)
 	rootCmd.AddCommand(SuslinksCmd)
+	rootCmd.AddCommand(SusheadlinesCmd)	
 }
 
 func main() {
