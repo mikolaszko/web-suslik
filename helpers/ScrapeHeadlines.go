@@ -7,10 +7,11 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
-func ScrapeHeadlines(link []string) {
+func ScrapeHeadlines(args []string) {
 
 	rootDomain :=
-		strings.Split(strings.SplitAfter(link[0], ".com")[0], "//")[1]
+		strings.Split(strings.SplitAfter(args[1], args[0])[0], "//")[1]
+
 	c := colly.NewCollector(
 		colly.AllowedDomains(rootDomain),
 	)
@@ -20,12 +21,21 @@ func ScrapeHeadlines(link []string) {
 	})
 
 	c.OnHTML("h1", func(e *colly.HTMLElement) {
-		if e == nil {
-			fmt.Println("No headings found on this page")
-		}
 		fmt.Println(e.Text)
 	})
 
-	c.Visit(link[0])
+	c.OnHTML("h2", func(e *colly.HTMLElement) {
+		fmt.Println(e.Text)
+	})
+	c.OnHTML("h3", func(e *colly.HTMLElement) {
+		fmt.Println(e.Text)
+	})
+	c.OnHTML("h4", func(e *colly.HTMLElement) {
+		fmt.Println(e.Text)
+	})
+	c.OnHTML("h5", func(e *colly.HTMLElement) {
+		fmt.Println(e.Text)
+	})
+	c.Visit(args[1])
 
 }
